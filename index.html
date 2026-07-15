@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel 7: Teşekkür Zamanı</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Bangers&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* Çizgi roman sayfası arka planı */
+            background-color: #f4f4f0;
+            background-image: radial-gradient(#d5d5d5 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .comic-font {
+            font-family: 'Patrick Hand', cursive;
+        }
+        .title-font {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 2px;
+        }
+        .comic-panel {
+            border: 5px solid #1a1a1a;
+            border-radius: 4px;
+            box-shadow: 8px 8px 0px #1a1a1a;
+            position: relative;
+            overflow: hidden;
+            /* Huzurlu bir gece gökyüzü arka planı */
+            background: linear-gradient(to bottom, #020617 0%, #1e1b4b 60%, #4c1d95 100%);
+        }
+        .caption-box {
+            background-color: #ffde59;
+            border: 3px solid #1a1a1a;
+            box-shadow: 4px 4px 0px #1a1a1a;
+            position: relative;
+            z-index: 30;
+        }
+
+        /* Konuşma Balonu */
+        .speech-bubble {
+            position: absolute;
+            background: white;
+            border: 3px solid #1a1a1a;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.4rem;
+            color: #1a1a1a;
+            box-shadow: 3px 3px 0px #1a1a1a;
+            z-index: 25;
+            bottom: 45%;
+            left: 55%;
+            transform: rotate(-2deg);
+            animation: gentleFloat 3s infinite alternate ease-in-out;
+        }
+        .speech-bubble::after {
+            content: ''; position: absolute;
+            bottom: -15px; left: 30px;
+            border-width: 15px 0 0 15px;
+            border-style: solid;
+            border-color: #1a1a1a transparent transparent transparent;
+        }
+        .speech-bubble::before {
+            content: ''; position: absolute;
+            bottom: -10px; left: 33px;
+            border-width: 10px 0 0 10px;
+            border-style: solid;
+            border-color: white transparent transparent transparent;
+            z-index: 1;
+        }
+
+        /* Arka plan yıldızları ve Samanyolu efekti */
+        .milky-way {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.1) 0%, transparent 60%);
+            z-index: 1;
+        }
+        .stars {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                radial-gradient(white 1px, transparent 1px),
+                radial-gradient(rgba(255,255,255,0.7) 2px, transparent 2px);
+            background-size: 80px 80px, 120px 120px;
+            background-position: 0 0, 40px 60px;
+            animation: twinkle 4s infinite alternate;
+            z-index: 2;
+        }
+        
+        /* Kayan Yıldız (Dilek tutma / Mucize hissi) */
+        .shooting-star {
+            position: absolute;
+            top: 15%;
+            right: 20%;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 3px rgba(255,255,255,0.8);
+            z-index: 3;
+            animation: shootingStarAnim 5s infinite linear;
+            opacity: 0;
+        }
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 0;
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(to right, rgba(255,255,255,0.8), transparent);
+        }
+
+        @keyframes shootingStarAnim {
+            0% { transform: translate(0, 0) rotate(-35deg); opacity: 0; }
+            10% { opacity: 1; }
+            20% { transform: translate(-200px, 140px) rotate(-35deg); opacity: 0; }
+            100% { transform: translate(-200px, 140px) rotate(-35deg); opacity: 0; }
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        @keyframes gentleFloat {
+            0% { transform: translateY(0) rotate(-2deg); }
+            100% { transform: translateY(-5px) rotate(0deg); }
+        }
+
+        /* ------------------ YERYÜZÜ VE ÇOCUK ------------------ */
+        /* Silüet şeklinde çimenlik tepe */
+        .hill {
+            position: absolute;
+            bottom: -50px;
+            left: -10%;
+            width: 120%;
+            height: 180px;
+            background-color: #020617; /* Siyahımsı silüet */
+            border-radius: 50% 50% 0 0;
+            z-index: 10;
+        }
+        
+        /* Ağaç silüeti */
+        .tree {
+            position: absolute;
+            bottom: 80px;
+            left: 15%;
+            font-size: 6rem;
+            z-index: 15;
+            filter: brightness(0) drop-shadow(0 -5px 15px rgba(255,255,255,0.1));
+        }
+
+        /* Çocuğun silüeti (Gökyüzüne bakan) */
+        .child-silhouette {
+            position: absolute;
+            bottom: 80px;
+            left: 48%;
+            font-size: 4rem;
+            z-index: 15;
+            /* Silüet yapmak için emojiyi karartıyoruz */
+            filter: brightness(0) drop-shadow(0 0 10px rgba(255,255,255,0.2));
+            animation: lookUp 4s infinite alternate;
+        }
+
+        @keyframes lookUp {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(1.05); }
+        }
+
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+
+    <!-- Çizgi Roman Sayfası Konteyneri -->
+    <div class="bg-white p-6 md:p-10 border-4 border-black shadow-[12px_12px_0_0_rgba(0,0,0,0.8)] w-full max-w-4xl transform rotate-1 hover:rotate-0 transition-transform duration-300">
+        
+        <!-- Üst Başlık -->
+        <div class="text-center mb-8">
+            <h1 class="title-font text-4xl md:text-5xl text-black inline-block relative">
+                <span class="relative z-10">Kozmosun Büyük Dansı</span>
+                <span class="absolute bottom-1 left-0 w-full h-3 bg-purple-300 -z-10 -rotate-2"></span>
+            </h1>
+        </div>
+
+        <!-- PANEL 7 -->
+        <div class="comic-panel w-full aspect-video md:aspect-[21/9] flex flex-col group cursor-pointer">
+            
+            <!-- Gökyüzü Efektleri -->
+            <div class="milky-way"></div>
+            <div class="stars"></div>
+            <div class="shooting-star"></div>
+
+            <!-- Konuşma Balonu -->
+            <div class="speech-bubble text-purple-900 font-bold">
+                Teşekkürler Evren! ✨
+            </div>
+
+            <!-- Yeryüzü Silüetleri -->
+            <div class="hill"></div>
+            <div class="tree">🌳</div>
+            <div class="child-silhouette">🧒🏽</div>
+
+            <!-- Sol Üst Köşe Sayfa Numarası -->
+            <div class="absolute top-4 left-4 text-white/50 comic-font text-sm z-30">
+                Sayfa 7 - SON
+            </div>
+
+            <!-- Anlatıcı Kutusu (Dış Ses) - Sol Alt -->
+            <!-- Çocuklar için "muazzam" kelimesini "harika" veya "kocaman" olarak sadeleştirebiliriz, burada "harika düzen"i seçtik -->
+            <div class="caption-box p-3 md:p-4 w-[95%] md:w-2/3 mt-auto mb-4 mx-auto self-start transform -rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                <h2 class="title-font text-xl md:text-2xl mb-1 text-black tracking-wide">PANEL 7: Teşekkür Zamanı</h2>
+                <p class="comic-font text-lg md:text-xl leading-relaxed text-gray-900">
+                    "Bugün bastığımız sert toprak, içtiğimiz serin su ve soluduğumuz hava, milyarlarca yıl önceki bu harika kuralların bize hediyesidir. Belki de bu muhteşem düzene içten bir teşekkür etmeliyiz, ne dersin?"
+                </p>
+            </div>
+            
+        </div>
+        
+        <div class="mt-8 text-center bg-yellow-100 p-4 border-2 border-dashed border-yellow-400 rounded-lg">
+            <h3 class="title-font text-2xl text-amber-600 mb-2">Hikaye Bitti, Ancak Senin Maceran Yeni Başlıyor! 🚀</h3>
+            <p class="comic-font text-gray-700 text-lg">
+                Şimdi kütüphaneye gidip volkanların nasıl oluştuğunu, okyanuslardaki ilk minik canlıları veya buzulların dünyayı nasıl değiştirdiğini araştırmaya ne dersin? Kendi panellerini çizmeye devam edebilirsin!
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
