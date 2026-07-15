@@ -3,230 +3,317 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel 7: Teşekkür Zamanı</title>
+    <title>Kozmosun Büyük Dansı - Tam Hikaye</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Bangers&display=swap" rel="stylesheet">
     <style>
         body {
-            /* Çizgi roman sayfası arka planı */
             background-color: #f4f4f0;
             background-image: radial-gradient(#d5d5d5 1px, transparent 1px);
             background-size: 20px 20px;
         }
-        .comic-font {
-            font-family: 'Patrick Hand', cursive;
-        }
-        .title-font {
-            font-family: 'Bangers', cursive;
-            letter-spacing: 2px;
-        }
+        .comic-font { font-family: 'Patrick Hand', cursive; }
+        .title-font { font-family: 'Bangers', cursive; letter-spacing: 2px; }
+        
         .comic-panel {
             border: 5px solid #1a1a1a;
             border-radius: 4px;
             box-shadow: 8px 8px 0px #1a1a1a;
             position: relative;
             overflow: hidden;
-            /* Huzurlu bir gece gökyüzü arka planı */
-            background: linear-gradient(to bottom, #020617 0%, #1e1b4b 60%, #4c1d95 100%);
+            width: 100%;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
         }
+        
+        @media (min-width: 768px) {
+            .comic-panel { min-height: 550px; }
+        }
+
         .caption-box {
             background-color: #ffde59;
             border: 3px solid #1a1a1a;
             box-shadow: 4px 4px 0px #1a1a1a;
             position: relative;
-            z-index: 30;
         }
 
-        /* Konuşma Balonu */
-        .speech-bubble {
-            position: absolute;
-            background: white;
-            border: 3px solid #1a1a1a;
-            border-radius: 30px;
-            padding: 10px 20px;
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1.4rem;
-            color: #1a1a1a;
-            box-shadow: 3px 3px 0px #1a1a1a;
-            z-index: 25;
-            bottom: 45%;
-            left: 55%;
-            transform: rotate(-2deg);
-            animation: gentleFloat 3s infinite alternate ease-in-out;
-        }
-        .speech-bubble::after {
-            content: ''; position: absolute;
-            bottom: -15px; left: 30px;
-            border-width: 15px 0 0 15px;
-            border-style: solid;
-            border-color: #1a1a1a transparent transparent transparent;
-        }
-        .speech-bubble::before {
-            content: ''; position: absolute;
-            bottom: -10px; left: 33px;
-            border-width: 10px 0 0 10px;
-            border-style: solid;
-            border-color: white transparent transparent transparent;
-            z-index: 1;
-        }
+        /* --- Panel Arka Planları --- */
+        .panel-1 { background: linear-gradient(to bottom, #05050a, #111118); }
+        .panel-2 { background: radial-gradient(circle at center, #ffffff 0%, #ffde59 15%, #ff5757 40%, #111118 90%); }
+        .panel-3 { background: radial-gradient(circle at 50% 50%, #4a0d00 0%, #1a0500 50%, #05050a 100%); }
+        .panel-4 { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #05050a 100%); }
+        .panel-5 { background: linear-gradient(to bottom, #1e3a8a 0%, #38bdf8 40%, #0284c7 60%, #78350f 85%, #451a03 100%); }
+        .panel-6 { background: radial-gradient(circle at 50% 50%, #0f172a 0%, #020617 100%); }
+        .panel-7 { background: linear-gradient(to bottom, #020617 0%, #1e1b4b 60%, #4c1d95 100%); }
 
-        /* Arka plan yıldızları ve Samanyolu efekti */
-        .milky-way {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.1) 0%, transparent 60%);
-            z-index: 1;
-        }
-        .stars {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                radial-gradient(white 1px, transparent 1px),
-                radial-gradient(rgba(255,255,255,0.7) 2px, transparent 2px);
-            background-size: 80px 80px, 120px 120px;
-            background-position: 0 0, 40px 60px;
-            animation: twinkle 4s infinite alternate;
-            z-index: 2;
-        }
+        /* --- Animasyon Ortak --- */
+        @keyframes twinkle { 0% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* --- Panel 1 Stilleri --- */
+        .dust-cloud { position: absolute; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%); border-radius: 50%; filter: blur(15px); }
+        .tiny-stars { position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 50px 50px, 90px 90px; background-position: 0 0, 25px 25px; opacity: 0.5; }
+
+        /* --- Panel 2 Stilleri --- */
+        .starburst { position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: repeating-conic-gradient(rgba(255, 222, 89, 0.4) 0 10deg, transparent 10deg 20deg, rgba(255, 87, 87, 0.4) 20deg 30deg, transparent 30deg 40deg); animation: rotateBurst 30s linear infinite; z-index: 5; mix-blend-mode: overlay; }
+        @keyframes rotateBurst { 100% { transform: rotate(360deg); } }
+        .boom-text { font-family: 'Bangers', cursive; font-size: clamp(5rem, 15vw, 12rem); color: #ffffff; text-shadow: 6px 6px 0px #ff5757, 12px 12px 0px #1a1a1a; position: absolute; top: 50%; left: 50%; translate: -50% -50%; z-index: 15; animation: pulseBoom 2s infinite alternate; }
+        @keyframes pulseBoom { 0% { transform: rotate(-10deg) scale(1); } 100% { transform: rotate(-8deg) scale(1.05); } }
+        .sparkle { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 10px 5px rgba(255,255,255,0.8); z-index: 10; }
+
+        /* --- Panel 3 Stilleri --- */
+        .bubble-p3 { position: absolute; background: white; border: 3px solid #1a1a1a; border-radius: 30px; padding: 8px 16px; font-family: 'Patrick Hand', cursive; font-size: 1.1rem; color: #1a1a1a; box-shadow: 3px 3px 0px #1a1a1a; z-index: 15; }
+        .bubble-p3-1 { top: 15%; left: 10%; transform: rotate(-2deg); }
+        .bubble-p3-2 { bottom: 35%; right: 5%; transform: rotate(3deg); }
+        .bubble-p3-1::after { content: ''; position: absolute; bottom: -15px; right: 20px; border-width: 15px 15px 0 0; border-style: solid; border-color: #1a1a1a transparent transparent transparent; }
+        .bubble-p3-1::before { content: ''; position: absolute; bottom: -9px; right: 23px; border-width: 10px 10px 0 0; border-style: solid; border-color: white transparent transparent transparent; z-index: 1; }
+        .bubble-p3-2::after { content: ''; position: absolute; top: -15px; left: 20px; border-width: 0 0 15px 15px; border-style: solid; border-color: transparent transparent #1a1a1a transparent; }
+        .bubble-p3-2::before { content: ''; position: absolute; top: -9px; left: 23px; border-width: 0 0 10px 10px; border-style: solid; border-color: transparent transparent white transparent; z-index: 1; }
         
-        /* Kayan Yıldız (Dilek tutma / Mucize hissi) */
-        .shooting-star {
-            position: absolute;
-            top: 15%;
-            right: 20%;
-            width: 3px;
-            height: 3px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 10px 3px rgba(255,255,255,0.8);
-            z-index: 3;
-            animation: shootingStarAnim 5s infinite linear;
-            opacity: 0;
-        }
-        .shooting-star::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            right: 0;
-            width: 80px;
-            height: 1px;
-            background: linear-gradient(to right, rgba(255,255,255,0.8), transparent);
-        }
+        .p3-particle { position: absolute; border-radius: 50%; border: 3px solid #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; box-shadow: 2px 2px 0px #1a1a1a, 0 0 20px rgba(255, 100, 0, 0.8); z-index: 10; width: 50px; height: 50px;}
+        .p3-p1 { background-color: #ff5757; top: 35%; left: 35%; animation: jitter1 0.3s infinite; }
+        .p3-p2 { background-color: #ffde59; top: 60%; left: 65%; animation: jitter2 0.4s infinite reverse; }
+        .p3-p3 { background-color: #ff914d; top: 20%; left: 70%; animation: jitter1 0.25s infinite; filter: blur(1px); width: 35px; height: 35px; font-size: 1.2rem; }
+        .p3-p4 { background-color: #cb6ce6; bottom: 15%; left: 20%; animation: jitter2 0.35s infinite; width: 40px; height: 40px; font-size: 1.5rem; }
+        @keyframes jitter1 { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 25% { transform: translate(3px, -3px) rotate(5deg); } 50% { transform: translate(-3px, 2px) rotate(0deg); } 75% { transform: translate(2px, 3px) rotate(-5deg); } }
+        @keyframes jitter2 { 0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); } 33% { transform: translate(-4px, -2px) rotate(-10deg) scale(1.1); } 66% { transform: translate(4px, 3px) rotate(10deg) scale(0.9); } }
+        .motion-line { position: absolute; background-color: white; height: 3px; border-radius: 2px; opacity: 0.7; }
 
-        @keyframes shootingStarAnim {
-            0% { transform: translate(0, 0) rotate(-35deg); opacity: 0; }
-            10% { opacity: 1; }
-            20% { transform: translate(-200px, 140px) rotate(-35deg); opacity: 0; }
-            100% { transform: translate(-200px, 140px) rotate(-35deg); opacity: 0; }
-        }
+        /* --- Panel 4 Stilleri --- */
+        .magic-line { position: absolute; border: 4px solid rgba(255, 215, 0, 0.4); box-shadow: 0 0 15px 5px rgba(255, 215, 0, 0.3), inset 0 0 10px rgba(255,215,0,0.3); border-radius: 50%; border-bottom-color: transparent; border-left-color: transparent; animation: pulse-glow 4s infinite alternate ease-in-out; z-index: 5; }
+        @keyframes pulse-glow { 0% { box-shadow: 0 0 10px 2px rgba(255, 215, 0, 0.2), inset 0 0 5px rgba(255,215,0,0.2); } 100% { box-shadow: 0 0 30px 10px rgba(255, 215, 0, 0.7), inset 0 0 15px rgba(255,215,0,0.5); border-color: rgba(255, 255, 255, 0.9); } }
+        .ethereal-voice { position: absolute; top: 15%; left: 50%; transform: translateX(-50%); font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: #fef08a; text-shadow: 0 0 10px #eab308, 0 0 20px #ca8a04, 0 0 30px #ffffff; text-align: center; z-index: 25; width: 90%; animation: float-voice 3s ease-in-out infinite; }
+        @keyframes float-voice { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-5px); } }
+        .p4-particle { position: absolute; width: 45px; height: 45px; border-radius: 50%; border: 3px solid #1a1a1a; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; box-shadow: 2px 2px 0px #1a1a1a; z-index: 10; animation: gentle-float 4s ease-in-out infinite; }
+        @keyframes gentle-float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(10deg); } }
+        .magnetic-pull { position: absolute; border: 2px dashed rgba(255, 255, 255, 0.4); border-radius: 50%; width: 80px; height: 80px; animation: spin 10s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        @keyframes twinkle {
-            0% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
-        @keyframes gentleFloat {
-            0% { transform: translateY(0) rotate(-2deg); }
-            100% { transform: translateY(-5px) rotate(0deg); }
-        }
+        /* --- Panel 5 Stilleri --- */
+        .p5-particle { position: absolute; border-radius: 50%; border: 3px solid #1a1a1a; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 0px #1a1a1a; z-index: 10; }
+        .solid-group { position: absolute; bottom: 5%; left: 10%; width: 150px; height: 100px; }
+        .solid-p { width: 45px; height: 45px; background-color: #a8a29e; font-size: 1.5rem; animation: shiver 2s infinite alternate; }
+        @keyframes shiver { 0% { transform: translate(0, 0); } 100% { transform: translate(1px, -1px); } }
+        .liquid-group { position: absolute; bottom: 35%; right: 15%; display: flex; gap: 5px; }
+        .liquid-p { width: 45px; height: 45px; background-color: #60a5fa; font-size: 1.5rem; animation: waveFlow 3s infinite ease-in-out alternate; }
+        @keyframes waveFlow { 0% { transform: translateY(0) translateX(0); } 100% { transform: translateY(-15px) translateX(-20px); } }
+        .gas-p { width: 45px; height: 45px; background-color: #f0fdf4; font-size: 1.5rem; opacity: 0.9; }
+        @keyframes floatHigh { 0%, 100% { transform: translate(0, 0) rotate(0deg); } 33% { transform: translate(20px, -20px) rotate(15deg); } 66% { transform: translate(-10px, -30px) rotate(-10deg); } }
+        .p5-label { position: absolute; font-family: 'Bangers', cursive; font-size: 1.5rem; color: white; text-shadow: 2px 2px 0 #1a1a1a; z-index: 20; letter-spacing: 1px; transform: rotate(-5deg); }
 
-        /* ------------------ YERYÜZÜ VE ÇOCUK ------------------ */
-        /* Silüet şeklinde çimenlik tepe */
-        .hill {
-            position: absolute;
-            bottom: -50px;
-            left: -10%;
-            width: 120%;
-            height: 180px;
-            background-color: #020617; /* Siyahımsı silüet */
-            border-radius: 50% 50% 0 0;
-            z-index: 10;
-        }
-        
-        /* Ağaç silüeti */
-        .tree {
-            position: absolute;
-            bottom: 80px;
-            left: 15%;
-            font-size: 6rem;
-            z-index: 15;
-            filter: brightness(0) drop-shadow(0 -5px 15px rgba(255,255,255,0.1));
-        }
+        /* --- Panel 6 Stilleri --- */
+        .stars-bg { position: absolute; inset: 0; background-image: radial-gradient(white 1px, transparent 1px), radial-gradient(rgba(255,255,255,0.8) 2px, transparent 2px); background-size: 100px 100px, 150px 150px; background-position: 0 0, 40px 60px; animation: twinkle 5s infinite alternate; z-index: 1; }
+        .planet-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 220px; height: 220px; border-radius: 50%; background: linear-gradient(135deg, #38bdf8, #0284c7, #082f49); box-shadow: 0 0 30px 10px rgba(56, 189, 248, 0.4), inset -20px -20px 40px rgba(0,0,0,0.7), inset 10px 10px 20px rgba(255,255,255,0.4); overflow: hidden; z-index: 10; border: 2px solid rgba(255,255,255,0.1); }
+        .planet-surface { width: 100%; height: 100%; position: relative; animation: spinPlanet 30s linear infinite; }
+        @keyframes spinPlanet { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .landmass { position: absolute; background: linear-gradient(135deg, #4ade80, #15803d); box-shadow: inset -5px -5px 15px rgba(0,0,0,0.3); }
+        .lava-crack { position: absolute; background-color: #f97316; box-shadow: 0 0 8px #ef4444; border-radius: 10px; }
+        .cloud { position: absolute; background: rgba(255,255,255,0.7); border-radius: 50px; filter: blur(2px); }
 
-        /* Çocuğun silüeti (Gökyüzüne bakan) */
-        .child-silhouette {
-            position: absolute;
-            bottom: 80px;
-            left: 48%;
-            font-size: 4rem;
-            z-index: 15;
-            /* Silüet yapmak için emojiyi karartıyoruz */
-            filter: brightness(0) drop-shadow(0 0 10px rgba(255,255,255,0.2));
-            animation: lookUp 4s infinite alternate;
-        }
-
-        @keyframes lookUp {
-            0% { transform: scaleY(1); }
-            100% { transform: scaleY(1.05); }
-        }
+        /* --- Panel 7 Stilleri --- */
+        .bubble-p7 { position: absolute; background: white; border: 3px solid #1a1a1a; border-radius: 30px; padding: 10px 20px; font-family: 'Patrick Hand', cursive; font-size: 1.4rem; color: #1a1a1a; box-shadow: 3px 3px 0px #1a1a1a; z-index: 25; bottom: 45%; left: 55%; transform: rotate(-2deg); animation: gentleFloat 3s infinite alternate ease-in-out; }
+        .bubble-p7::after { content: ''; position: absolute; bottom: -15px; left: 30px; border-width: 15px 0 0 15px; border-style: solid; border-color: #1a1a1a transparent transparent transparent; }
+        .bubble-p7::before { content: ''; position: absolute; bottom: -10px; left: 33px; border-width: 10px 0 0 10px; border-style: solid; border-color: white transparent transparent transparent; z-index: 1; }
+        .milky-way { position: absolute; inset: 0; background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.1) 0%, transparent 60%); z-index: 1; }
+        .shooting-star { position: absolute; top: 15%; right: 20%; width: 3px; height: 3px; background: white; border-radius: 50%; box-shadow: 0 0 10px 3px rgba(255,255,255,0.8); z-index: 3; animation: shootingStarAnim 5s infinite linear; opacity: 0; }
+        .shooting-star::after { content: ''; position: absolute; top: 50%; transform: translateY(-50%); right: 0; width: 80px; height: 1px; background: linear-gradient(to right, rgba(255,255,255,0.8), transparent); }
+        @keyframes shootingStarAnim { 0% { transform: translate(0, 0) rotate(-35deg); opacity: 0; } 10% { opacity: 1; } 20%, 100% { transform: translate(-200px, 140px) rotate(-35deg); opacity: 0; } }
+        @keyframes gentleFloat { 0% { transform: translateY(0) rotate(-2deg); } 100% { transform: translateY(-5px) rotate(0deg); } }
+        .hill { position: absolute; bottom: -50px; left: -10%; width: 120%; height: 180px; background-color: #020617; border-radius: 50% 50% 0 0; z-index: 10; }
+        .tree { position: absolute; bottom: 80px; left: 15%; font-size: 6rem; z-index: 15; filter: brightness(0) drop-shadow(0 -5px 15px rgba(255,255,255,0.1)); }
+        .child-silhouette { position: absolute; bottom: 80px; left: 48%; font-size: 4rem; z-index: 15; filter: brightness(0) drop-shadow(0 0 10px rgba(255,255,255,0.2)); animation: lookUp 4s infinite alternate; }
+        @keyframes lookUp { 0% { transform: scaleY(1); } 100% { transform: scaleY(1.05); } }
 
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+<body class="min-h-screen p-4 md:p-8">
 
-    <!-- Çizgi Roman Sayfası Konteyneri -->
-    <div class="bg-white p-6 md:p-10 border-4 border-black shadow-[12px_12px_0_0_rgba(0,0,0,0.8)] w-full max-w-4xl transform rotate-1 hover:rotate-0 transition-transform duration-300">
+    <!-- Ana Çizgi Roman Kağıdı -->
+    <div class="bg-white p-6 md:p-10 border-4 border-black shadow-[12px_12px_0_0_rgba(0,0,0,0.8)] w-full max-w-4xl mx-auto flex flex-col gap-12">
         
         <!-- Üst Başlık -->
-        <div class="text-center mb-8">
-            <h1 class="title-font text-4xl md:text-5xl text-black inline-block relative">
+        <div class="text-center mt-4 mb-4">
+            <h1 class="title-font text-5xl md:text-7xl text-black inline-block relative">
                 <span class="relative z-10">Kozmosun Büyük Dansı</span>
-                <span class="absolute bottom-1 left-0 w-full h-3 bg-purple-300 -z-10 -rotate-2"></span>
+                <span class="absolute bottom-2 left-0 w-full h-4 bg-yellow-300 -z-10 -rotate-2"></span>
             </h1>
+            <p class="comic-font text-xl text-gray-600 mt-4">Aşağı doğru kaydırarak evrenin hikayesini keşfet! 👇</p>
         </div>
 
-        <!-- PANEL 7 -->
-        <div class="comic-panel w-full aspect-video md:aspect-[21/9] flex flex-col group cursor-pointer">
-            
-            <!-- Gökyüzü Efektleri -->
-            <div class="milky-way"></div>
-            <div class="stars"></div>
-            <div class="shooting-star"></div>
+        <!-- ================= PANEL 1 ================= -->
+        <div class="comic-panel panel-1 group transform rotate-1 transition-transform hover:rotate-0">
+            <div class="dust-cloud" style="width: 300px; height: 300px; top: -50px; left: -50px;"></div>
+            <div class="dust-cloud" style="width: 400px; height: 400px; bottom: -100px; right: -50px; opacity: 0.7;"></div>
+            <div class="tiny-stars"></div>
 
-            <!-- Konuşma Balonu -->
-            <div class="speech-bubble text-purple-900 font-bold">
-                Teşekkürler Evren! ✨
+            <!-- Güvenli Sanat Alanı -->
+            <div class="relative w-full flex-1 z-10">
+                <div class="absolute top-4 left-4 text-white/30 comic-font text-sm">Sayfa 1</div>
             </div>
 
-            <!-- Yeryüzü Silüetleri -->
-            <div class="hill"></div>
-            <div class="tree">🌳</div>
-            <div class="child-silhouette">🧒🏽</div>
-
-            <!-- Sol Üst Köşe Sayfa Numarası -->
-            <div class="absolute top-4 left-4 text-white/50 comic-font text-sm z-30">
-                Sayfa 7 - SON
-            </div>
-
-            <!-- Anlatıcı Kutusu (Dış Ses) - Sol Alt -->
-            <!-- Çocuklar için "muazzam" kelimesini "harika" veya "kocaman" olarak sadeleştirebiliriz, burada "harika düzen"i seçtik -->
-            <div class="caption-box p-3 md:p-4 w-[95%] md:w-2/3 mt-auto mb-4 mx-auto self-start transform -rotate-1 group-hover:rotate-0 transition-transform duration-300">
-                <h2 class="title-font text-xl md:text-2xl mb-1 text-black tracking-wide">PANEL 7: Teşekkür Zamanı</h2>
-                <p class="comic-font text-lg md:text-xl leading-relaxed text-gray-900">
-                    "Bugün bastığımız sert toprak, içtiğimiz serin su ve soluduğumuz hava, milyarlarca yıl önceki bu harika kuralların bize hediyesidir. Belki de bu muhteşem düzene içten bir teşekkür etmeliyiz, ne dersin?"
+            <!-- Metin Kutusu (Otomatik olarak en alta itilir ve objeleri örtmez) -->
+            <div class="caption-box p-3 md:p-4 w-[95%] md:w-3/4 mx-auto mb-4 mt-auto z-20 transform -rotate-1 group-hover:rotate-0 transition-transform">
+                <h2 class="title-font text-xl md:text-2xl mb-1 text-black">PANEL 1: Sonsuz Karanlık</h2>
+                <p class="comic-font text-lg md:text-xl text-gray-900">
+                    "Çok ama çok uzun zaman önce, zamanın bile henüz başlamadığı bir dönemde... Ne güneş vardı, ne yıldızlar, ne de üzerinde koştuğumuz toprak. Her yer mutlak bir sessizlik ve soğuk bir karanlıktan ibaretti."
                 </p>
             </div>
-            
         </div>
-        
-        <div class="mt-8 text-center bg-yellow-100 p-4 border-2 border-dashed border-yellow-400 rounded-lg">
-            <h3 class="title-font text-2xl text-amber-600 mb-2">Hikaye Bitti, Ancak Senin Maceran Yeni Başlıyor! 🚀</h3>
-            <p class="comic-font text-gray-700 text-lg">
-                Şimdi kütüphaneye gidip volkanların nasıl oluştuğunu, okyanuslardaki ilk minik canlıları veya buzulların dünyayı nasıl değiştirdiğini araştırmaya ne dersin? Kendi panellerini çizmeye devam edebilirsin!
+
+        <!-- ================= PANEL 2 ================= -->
+        <div class="comic-panel panel-2 group transform -rotate-1 transition-transform hover:rotate-0">
+            <div class="starburst"></div>
+            
+            <div class="relative w-full flex-1 z-10">
+                <div class="sparkle" style="top: 20%; left: 30%; width: 5px; height: 5px;"></div>
+                <div class="sparkle" style="top: 70%; left: 60%; width: 8px; height: 8px;"></div>
+                <div class="sparkle" style="top: 40%; left: 80%; width: 4px; height: 4px;"></div>
+                <div class="boom-text select-none">BOOM! ✨</div>
+                <div class="absolute top-4 left-4 text-white/50 comic-font text-sm z-20">Sayfa 2</div>
+            </div>
+
+            <div class="caption-box p-3 md:p-4 w-[95%] md:w-3/4 mx-auto mb-4 mt-auto z-20 transform rotate-1 group-hover:rotate-0 transition-transform">
+                <h2 class="title-font text-xl md:text-2xl mb-1 text-black">PANEL 2: Büyük Kıvılcım!</h2>
+                <p class="comic-font text-lg md:text-xl text-gray-900">
+                    "Ve sonra, birdenbire... Her şey tek bir noktada toplandı ve kocaman bir enerjiyle çevreye saçıldı! Işık, ısı ve evrenin ilk minik parçacıkları doğdu."
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= PANEL 3 ================= -->
+        <div class="comic-panel panel-3 group transform rotate-1 transition-transform hover:rotate-0">
+            <div class="relative w-full flex-1 z-10">
+                <div class="bubble-p3 bubble-p3-1">Çok sıcak! Duramıyorum!</div>
+                <div class="bubble-p3 bubble-p3-2">Ben de! Koşmaya devam!</div>
+
+                <div class="p3-particle p3-p1">🥵
+                    <div class="motion-line w-8" style="top: 50%; left: -40px; transform: rotate(15deg);"></div>
+                </div>
+                <div class="p3-particle p3-p2">😵‍💫
+                    <div class="motion-line w-10" style="top: 60%; right: -50px; transform: rotate(-15deg);"></div>
+                </div>
+                <div class="p3-particle p3-p3">🏃</div>
+                <div class="p3-particle p3-p4">🔥</div>
+                <div class="absolute top-4 right-4 text-white/50 comic-font text-sm z-20">Sayfa 3</div>
+            </div>
+
+            <div class="caption-box p-3 md:p-4 w-[95%] md:w-3/4 mx-auto mb-4 mt-auto z-20 transform -rotate-1 group-hover:rotate-0 transition-transform">
+                <h2 class="title-font text-xl md:text-2xl mb-1 text-black">PANEL 3: Telaşlı Parçacıklar</h2>
+                <p class="comic-font text-lg md:text-xl text-gray-900">
+                    "Bu parçacıklar o kadar sıcaktı ki! Tıpkı çok sıcakta yerinde duramayan bizler gibi, çılgınca ve çok hızlı koşuyorlardı."
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= PANEL 4 ================= -->
+        <div class="comic-panel panel-4 group transform -rotate-1 transition-transform hover:rotate-0">
+            <div class="relative w-full flex-1 z-10">
+                <div class="magic-line" style="width: 120%; height: 150%; top: -60%; left: -10%; transform: rotate(15deg);"></div>
+                <div class="magic-line" style="width: 100%; height: 120%; bottom: -40%; right: -20%; transform: rotate(-35deg); border-top-color: transparent; border-right-color: transparent; border-bottom-color: rgba(255, 215, 0, 0.4); border-left-color: rgba(255, 215, 0, 0.4);"></div>
+                
+                <div class="ethereal-voice md:text-2xl">✨ "Soğudukça yavaşlayın ve birbirinize tutunun!" ✨</div>
+                <div class="magnetic-pull" style="top: 40%; left: 21%;"></div>
+
+                <div class="p4-particle" style="background-color: #ff5757; top: 45%; left: 25%;">😲</div>
+                <div class="p4-particle" style="background-color: #ffde59; top: 35%; right: 25%; animation-delay: 1s;">😯</div>
+                <div class="p4-particle" style="background-color: #cb6ce6; bottom: 25%; left: 50%; width: 35px; height: 35px; font-size: 1.2rem; animation-delay: 2s;">🥺</div>
+                <div class="absolute top-4 right-4 text-white/40 comic-font text-sm z-30">Sayfa 4</div>
+            </div>
+
+            <div class="caption-box p-3 md:p-4 w-[95%] md:w-3/4 mx-auto mb-4 mt-auto z-20 transform rotate-1 group-hover:rotate-0 transition-transform">
+                <h2 class="title-font text-xl md:text-2xl mb-1 text-black">PANEL 4: Doğanın Gizli Kuralları</h2>
+                <p class="comic-font text-lg md:text-xl text-gray-900">
+                    "Ama evren başıboş değildi. Doğanın harika kuralları hemen devreye girdi. Her parçacığa ne yapması gerektiğini fısıldayan gizli kurallar vardı."
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= PANEL 5 ================= -->
+        <div class="comic-panel panel-5 group transform rotate-1 transition-transform hover:rotate-0">
+            <div class="relative w-full flex-1 z-10">
+                <div class="p5-label" style="top: 10%; left: 35%;">GAZ ☁️</div>
+                <div class="p5-particle gas-p" style="top: 15%; left: 20%; animation: floatHigh 4s infinite ease-in-out;">😆</div>
+                <div class="p5-particle gas-p" style="top: 10%; right: 30%; animation: floatHigh 3s infinite ease-in-out reverse; width: 35px; height: 35px; font-size: 1.2rem;">💨</div>
+                
+                <div class="p5-label" style="bottom: 45%; right: 25%; transform: rotate(5deg);">SIVI 💧</div>
+                <div class="liquid-group">
+                    <div class="p5-particle liquid-p" style="position: relative;">😌</div>
+                    <div class="p5-particle liquid-p" style="position: relative; margin-left: -15px; animation-delay: 0.5s; background-color: #3b82f6;">😊</div>
+                    <div class="p5-particle liquid-p" style="position: relative; margin-left: -15px; animation-delay: 1s; background-color: #93c5fd;">😌</div>
+                </div>
+
+                <div class="p5-label" style="bottom: 25%; left: 12%;">KATI 🪨</div>
+                <div class="solid-group">
+                    <div class="p5-particle solid-p" style="bottom: 0; left: 20px; z-index: 3;">🫂</div>
+                    <div class="p5-particle solid-p" style="bottom: 0; left: 50px; z-index: 2;">😬</div>
+                    <div class="p5-particle solid-p" style="bottom: 25px; left: 35px; z-index: 1;">🤝</div>
+                </div>
+                <div class="absolute top-4 left-4 text-white/50 comic-font text-sm z-30">Sayfa 5</div>
+            </div>
+
+            <div class="caption-box p-3 md:p-4 w-[95%] md:w-3/4 mx-auto mb-4 mt-auto z-30 transform -rotate-1 group-hover:rotate-0 transition-transform">
+                <h2 class="title-font text-xl md:text-2xl mb-1 text-black">PANEL 5: Katı, Sıvı ve Gazın Dansı</h2>
+                <p class="comic-font text-lg md:text-xl text-gray-900">
+                    "Ağır parçacıklar sarılıp katıları, hafifler sıvı suları, en hafifler ise gökyüzündeki gazları var etti."
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= PANEL 6 ================= -->
+        <div class="comic-panel panel-6 group transform -rotate-1 transition-transform hover:rotate-0">
+            <div class="stars-bg"></div>
+            
+            <div class="relative w-full flex-1 z-10">
+                <div class="planet-container">
+                    <div class="planet-surface">
+                        <div class="landmass" style="width: 120px; height: 90px; top: 10%; left: -20px; border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;"></div>
+                        <div class="landmass" style="width: 140px; height: 100px; bottom: -20px; right: -10px; border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%;"></div>
+                        <div class="lava-crack" style="width: 40px; height: 3px; top: 30%; left: 30%; transform: rotate(25deg);"></div>
+                        <div class="cloud" style="width: 60px; height: 15px; top: 25%; left: 20%; transform: rotate(10deg);"></div>
+                    </div>
+                </div>
+                <div class="absolute top-4 left-4 text-white/50 comic-font text-sm z-30">Sayfa 6</div>
+            </div>
+
+            <div class="caption-box p-3 md:p-4 w-[95%] md:w-3/4 mx-auto mb-4 mt-auto z-30 transform rotate-1 group-hover:rotate-0 transition-transform">
+                <h2 class="title-font text-xl md:text-2xl mb-1 text-black">PANEL 6: Dünyamız Şekilleniyor</h2>
+                <p class="comic-font text-lg md:text-xl text-gray-900">
+                    "Milyonlarca yıl süren bu harika dansın sonunda, üzerinde yaşadığımız mavi-yeşil evimiz, Dünya şekillendi."
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= PANEL 7 ================= -->
+        <div class="comic-panel panel-7 group transform rotate-1 transition-transform hover:rotate-0">
+            <div class="milky-way"></div>
+            <div class="stars-bg" style="background-size: 80px 80px, 120px 120px;"></div>
+            <div class="shooting-star"></div>
+
+            <div class="relative w-full flex-1 z-10">
+                <div class="bubble-p7 text-purple-900 font-bold">Teşekkürler Evren! ✨</div>
+                <div class="hill"></div>
+                <div class="tree">🌳</div>
+                <div class="child-silhouette">🧒🏽</div>
+                <div class="absolute top-4 right-4 text-white/50 comic-font text-sm z-30">Sayfa 7 - SON</div>
+            </div>
+
+            <div class="caption-box p-3 md:p-4 w-[95%] md:w-3/4 mx-auto mb-4 mt-auto z-30 transform -rotate-1 group-hover:rotate-0 transition-transform">
+                <h2 class="title-font text-xl md:text-2xl mb-1 text-black">PANEL 7: Teşekkür Zamanı</h2>
+                <p class="comic-font text-lg md:text-xl text-gray-900">
+                    "Bugün bastığımız toprak, içtiğimiz su ve hava... Belki de bu muhteşem düzene içten bir teşekkür etmeliyiz."
+                </p>
+            </div>
+        </div>
+
+        <!-- ================= BİTİŞ & DAVET ================= -->
+        <div class="mt-4 text-center bg-yellow-100 p-6 border-2 border-dashed border-yellow-400 rounded-lg">
+            <h3 class="title-font text-3xl text-amber-600 mb-3">Hikaye Bitti, Ancak Senin Maceran Yeni Başlıyor! 🚀</h3>
+            <p class="comic-font text-gray-800 text-xl">
+                Şimdi kütüphaneye gidip volkanların nasıl oluştuğunu, okyanuslardaki ilk canlıları veya buzulların dünyayı nasıl değiştirdiğini araştırmaya ne dersin? Kendi panellerini çizebilirsin!
             </p>
         </div>
 
     </div>
-
 </body>
 </html>
